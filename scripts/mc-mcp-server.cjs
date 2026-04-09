@@ -7,7 +7,7 @@
  - Add with: claude mcp add mission-control -- node /path/to/mc-mcp-server.cjs
 
  Environment:
-   MC_URL       Base URL (default: http://127.0.0.1:3000)
+   MC_URL       Base URL (default: http://127.0.0.1:5000)
    MC_API_KEY   API key for auth
    MC_COOKIE    Session cookie (alternative auth)
 */
@@ -29,7 +29,7 @@ function loadConfig() {
   } catch { /* no profile */ }
 
   return {
-    baseUrl: (process.env.MC_URL || profile.url || 'http://127.0.0.1:3000').replace(/\/+$/, ''),
+    baseUrl: (process.env.MC_URL || profile.url || 'http://127.0.0.1:5000').replace(/\/+$/, ''),
     apiKey: process.env.MC_API_KEY || profile.apiKey || '',
     cookie: process.env.MC_COOKIE || profile.cookie || '',
   };

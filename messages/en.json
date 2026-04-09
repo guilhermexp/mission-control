@@ -834,7 +834,12 @@
     "submit": "Submit",
     "loadingTranscript": "Loading transcript...",
     "noSessionMessages": "No session messages",
-    "dunkIt": "Dunk It"
+    "dunkIt": "Dunk It",
+    "loadingTasks": "Loading tasks…",
+    "spawnLabelPlaceholder": "Label (optional)",
+    "taskBoard": "Task Board",
+    "taskId": "Task ID",
+    "timeoutSeconds": "Timeout (seconds)"
   },
   "cronManagement": {
     "title": "Cron Management",
@@ -930,7 +935,8 @@
     "collapse": "Collapse",
     "expand": "Expand",
     "noClaudeCodeTeams": "No Claude Code teams found in ~/.claude/teams/",
-    "membersCount": "{count, plural, one {# member} other {# members}}"
+    "membersCount": "{count, plural, one {# member} other {# members}}",
+    "calMode_day": "Day"
   },
   "sessionDetails": {
     "title": "Session Management",

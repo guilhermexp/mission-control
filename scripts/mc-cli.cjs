@@ -100,7 +100,7 @@ function loadProfile(name) {
   if (!fs.existsSync(p)) {
     return {
       name,
-      url: process.env.MC_URL || 'http://127.0.0.1:3000',
+      url: process.env.MC_URL || 'http://127.0.0.1:5000',
       apiKey: process.env.MC_API_KEY || '',
       cookie: process.env.MC_COOKIE || '',
     };
@@ -109,14 +109,14 @@ function loadProfile(name) {
     const parsed = JSON.parse(fs.readFileSync(p, 'utf8'));
     return {
       name,
-      url: parsed.url || process.env.MC_URL || 'http://127.0.0.1:3000',
+      url: parsed.url || process.env.MC_URL || 'http://127.0.0.1:5000',
       apiKey: parsed.apiKey || process.env.MC_API_KEY || '',
       cookie: parsed.cookie || process.env.MC_COOKIE || '',
     };
   } catch {
     return {
       name,
-      url: process.env.MC_URL || 'http://127.0.0.1:3000',
+      url: process.env.MC_URL || 'http://127.0.0.1:5000',
       apiKey: process.env.MC_API_KEY || '',
       cookie: process.env.MC_COOKIE || '',
     };

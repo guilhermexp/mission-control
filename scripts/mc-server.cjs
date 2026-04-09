@@ -14,7 +14,7 @@
 const http = require('http')
 const path = require('path')
 
-const PORT = parseInt(process.env.PORT || '3000', 10)
+const PORT = parseInt(process.env.PORT || '5000', 10)
 const HOST = process.env.HOSTNAME || '0.0.0.0'
 
 // Check if running in standalone mode
