@@ -7,13 +7,23 @@ import { passwordChangeLimiter } from '@/lib/rate-limit'
 import { logger } from '@/lib/logger'
 
 export async function GET(request: Request) {
-  const auth = requireRole(request, 'viewer')
-  if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status })
-
   const user = getUserFromRequest(request)
 
   if (!user) {
-    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+    // AUTH_DISABLED: return default admin user so client doesn't redirect to login
+    return NextResponse.json({
+      user: {
+        id: 1,
+        username: 'genio',
+        display_name: 'Genio',
+        role: 'admin',
+        provider: 'local',
+        email: null,
+        avatar_url: null,
+        workspace_id: 1,
+        tenant_id: 1,
+      },
+    })
   }
 
   return NextResponse.json({

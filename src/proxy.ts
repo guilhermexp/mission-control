@@ -181,34 +181,15 @@ export function proxy(request: NextRequest) {
   // Check for session cookie
   const sessionToken = request.cookies.get(MC_SESSION_COOKIE_NAME)?.value || request.cookies.get(LEGACY_MC_SESSION_COOKIE_NAME)?.value
 
-  // API routes: accept session cookie OR API key
+  // API routes: skip auth (AUTH_DISABLED)
   if (pathname.startsWith('/api/')) {
-    const configuredApiKey = (process.env.API_KEY || '').trim()
-    const apiKey = extractApiKeyFromRequest(request)
-    const hasValidApiKey = Boolean(configuredApiKey && apiKey && safeCompare(apiKey, configuredApiKey))
-
-    // Agent-scoped keys are validated in route auth (DB-backed) and should be
-    // allowed to pass through proxy auth gate.
-    const looksLikeAgentApiKey = /^mca_[a-f0-9]{48}$/i.test(apiKey)
-
-    if (sessionToken || hasValidApiKey || looksLikeAgentApiKey) {
-      const { response, nonce } = nextResponseWithNonce(request)
-      return addSecurityHeaders(response, request, nonce)
-    }
-
-    return addSecurityHeaders(NextResponse.json({ error: 'Unauthorized' }, { status: 401 }), request)
-  }
-
-  // Page routes: redirect to login if no session
-  if (sessionToken) {
     const { response, nonce } = nextResponseWithNonce(request)
     return addSecurityHeaders(response, request, nonce)
   }
 
-  // Redirect to login
-  const loginUrl = request.nextUrl.clone()
-  loginUrl.pathname = '/login'
-  return addSecurityHeaders(NextResponse.redirect(loginUrl), request)
+  // Page routes: skip auth (AUTH_DISABLED)
+  const { response: pageResponse, nonce: pageNonce } = nextResponseWithNonce(request)
+  return addSecurityHeaders(pageResponse, request, pageNonce)
 }
 
 export const config = {
